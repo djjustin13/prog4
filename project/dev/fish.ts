@@ -18,16 +18,14 @@ class Fish {
         this.element.style.webkitFilter = "hue-rotate("+ this.color +"deg)"
         this.element.style.filter = "hue-rotate("+ this.color +"deg)"
 
-        this.element.addEventListener("click", this.clickFish)
+        this.element.addEventListener("click", ()=> this.clickFish())
     }
 
     randomNumber(min:number, max:number) {
         return Math.floor(Math.random() * (max - min + 1) ) + min;
     }
 
-    clickFish(event:Event){
-        let fish = event.target
-        console.log(fish)
-        fish.classList.add("dead")
+    clickFish(){
+        this.classList.add("dead")
     }
 }

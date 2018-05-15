@@ -13,6 +13,7 @@ var Bubble = (function () {
 }());
 var Fish = (function () {
     function Fish() {
+        var _this = this;
         this.element = document.createElement("fish");
         document.body.appendChild(this.element);
         this.x = this.randomNumber(0, window.innerWidth - 130);
@@ -22,15 +23,13 @@ var Fish = (function () {
         this.color = this.randomNumber(0, 360);
         this.element.style.webkitFilter = "hue-rotate(" + this.color + "deg)";
         this.element.style.filter = "hue-rotate(" + this.color + "deg)";
-        this.element.addEventListener("click", this.clickFish);
+        this.element.addEventListener("click", function () { return _this.clickFish(); });
     }
     Fish.prototype.randomNumber = function (min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     };
-    Fish.prototype.clickFish = function (event) {
-        var fish = event.target;
-        console.log(fish);
-        fish.classList.add("dead");
+    Fish.prototype.clickFish = function () {
+        this.classList.add("dead");
     };
     return Fish;
 }());
