@@ -26,6 +26,6 @@ class Fish {
     }
 
     clickFish(){
-        this.classList.add("dead")
+        this.element.classList.add("dead")
     }
 }
