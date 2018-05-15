@@ -1,16 +1,11 @@
-# Typescript startproject
+# Programmeren aquarium uitwerking
+OOP uitwerking van de opdracht van het aquarium
 
-Dit is een leeg startproject voor de oefeningen in CMTTHE01-4 en PRG01-8. 
+##Game object
+In het game object wordt de functie `generateObjects()` uitgevoerd totdat er 100 elementen zijn.
 
-## Het project
+##Bubble object
+De bubble heeft als eigenschappen een x positie en het html element. De class heeft een helper functie om makkelijk random nummers te genereren
 
-- De **docs** map bevat de client side:html en css. De js file wordt hier automatisch in gezet door de compiler.
-- De **dev** map bevat de typescript files.
-- **game.ts** is het startpunt van de app. Hierin staat de window listener die een `new Game()` maakt.
-
-## Compileren
-- Druk op CMD+SHIFT+B en kies voor `watch mode`. Je `.ts` files worden nu samengevoegd in `main.js`.
-- tsconfig.json bevat instellingen voor het compileren.
-
-## Bekijken
-Open index.html in `localhost`
+##Fish object
+Het fish object heeft als eigenschappen een x & y positie, kleur en html element. Op de vis wordt een eventlistener gezet met een click functie. De class heeft een helper functie om makkelijk random nummers te genereren
