@@ -26,10 +26,11 @@ var Fish = (function () {
         this.element.addEventListener("click", function () { return _this.clickFish(); });
     }
     Fish.prototype.randomNumber = function (min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+        var a = Math.floor(Math.random() * (max - min + 1)) + min;
+        return a;
     };
     Fish.prototype.clickFish = function () {
-        this.classList.add("dead");
+        this.element.classList.add("dead");
     };
     return Fish;
 }());
