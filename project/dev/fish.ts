@@ -24,13 +24,13 @@ class Fish {
         this.element.style.webkitFilter = "hue-rotate("+ this.color +"deg)"
         this.element.style.filter = "hue-rotate("+ this.color +"deg)"
 
-        //Add event listener
+        //Add event listener -> call function when clicked
         this.element.addEventListener("click", ()=> this.clickFish())
     }
 
     /**
      * Generate random number between range
-     * @param min 
+     * @param min
      * @param max 
      */
     randomNumber(min:number, max:number) {
