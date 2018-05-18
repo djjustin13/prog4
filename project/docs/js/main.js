@@ -41,11 +41,13 @@ var Game = (function () {
         this.generateObjects();
     }
     Game.prototype.generateObjects = function () {
+        var _this = this;
         this.elCounter++;
-        var fish = new Fish;
-        var bubble = new Bubble;
-        if (this.elCounter < 99)
-            setTimeout(this.generateObjects.bind(this), 333);
+        var fish = new Fish();
+        var bubble = new Bubble();
+        if (this.elCounter < 99) {
+            setTimeout(function () { return _this.generateObjects(); }, 333);
+        }
     };
     return Game;
 }());

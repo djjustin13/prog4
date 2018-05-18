@@ -14,10 +14,10 @@ class Game {
         //Create objects
         let fish:Fish = new Fish()
         let bubble:Bubble = new Bubble()
-
+        
         //Call function with delay if less then 99 items
         if(this.elCounter < 99){
-            setTimeout(() => this.generateObjects.bind, 333)
+            setTimeout(() => this.generateObjects(), 333)
         }
     }
 }
