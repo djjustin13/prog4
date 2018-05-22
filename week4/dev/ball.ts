@@ -9,6 +9,8 @@ class Ball {
     
     private speedX: number
     private speedY: number
+
+    private flip:boolean = false
     
     constructor() {
         this.div = document.createElement("ball")
@@ -27,6 +29,11 @@ class Ball {
     
     public hitPaddle(){
         this.speedX *= -1
+        if(this.flip == true){
+            this.flip = false
+        }else{
+            this.flip = true
+        }
     }
 
     public update() : void {
@@ -39,6 +46,11 @@ class Ball {
 
         if (this.x > window.innerWidth) {
             this.speedX *= -1
+            if(this.flip == true){
+                this.flip = false
+            }else{
+                this.flip = true
+            }
         } 
         
         if (this.x + this.getRectangle().width < 0) { 
@@ -46,6 +58,12 @@ class Ball {
             console.log("lose a life")
         } 
                         
-        this.div.style.transform = `translate(${this.x}px, ${this.y}px)` 
+        this.div.style.transform = `translate(${this.x}px, ${this.y}px)`
+        if(this.flip == true){
+            this.div.style.transform += `rotate(180deg)` 
+        }else if(this.flip == false){
+            this.div.style.transform += `rotate(0deg)` 
+        }
+        
     }
 }
