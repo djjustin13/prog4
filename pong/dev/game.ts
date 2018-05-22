@@ -11,7 +11,7 @@ class Game {
         this.scoreElement = document.getElementsByTagName('score')[0]
         this.balls = []
 
-          for(let i =0; i<2; i++){
+          for(let i =0; i<10; i++){
             let b= new Ball()
             this.balls.push(b)
         }
@@ -25,7 +25,6 @@ class Game {
         for (let b of this.balls){
             let hit = this.checkCollision(this.paddle.getRectangle(), b.getRectangle())
             if(hit){
-                console.log("hiiiiiit")
                 b.changeDir()
                 this.score++
                 this.scoreElement.innerHTML = "Score: "+ this.score

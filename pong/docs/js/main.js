@@ -33,7 +33,7 @@ var Game = (function () {
         this.score = -2;
         this.scoreElement = document.getElementsByTagName('score')[0];
         this.balls = [];
-        for (var i = 0; i < 2; i++) {
+        for (var i = 0; i < 10; i++) {
             var b = new Ball();
             this.balls.push(b);
         }
