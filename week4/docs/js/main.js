@@ -45,8 +45,9 @@ var Paddle = (function () {
     return Paddle;
 }());
 var Ball = (function () {
-    function Ball() {
+    function Ball(s) {
         this.flip = false;
+        this.screen = s;
         this.div = document.createElement("ball");
         document.body.appendChild(this.div);
         this.x = window.innerWidth;
@@ -83,7 +84,7 @@ var Ball = (function () {
         }
         if (this.x + this.getRectangle().width < 0) {
             this.x = window.innerWidth;
-            console.log("lose a life");
+            this.screen.lives--;
         }
         this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
         if (this.flip == true) {
@@ -109,11 +110,15 @@ var Game = (function () {
         document.body.innerHTML = "";
         this.screen = new PlayScreen(this);
     };
+    Game.prototype.showEndScreen = function () {
+        document.body.innerHTML = "";
+        this.screen = new GameOverScreen(this);
+    };
     return Game;
 }());
 window.addEventListener("load", function () { return new Game(); });
 var GameOverScreen = (function () {
-    function GameOverScreen() {
+    function GameOverScreen(g) {
     }
     GameOverScreen.prototype.update = function () {
     };
@@ -122,27 +127,38 @@ var GameOverScreen = (function () {
 var PlayScreen = (function () {
     function PlayScreen(g) {
         this.balls = [];
+        this.score = -5;
+        this.lives = 10;
+        this.ui = new UI(this);
         this.game = g;
         this.paddle = new Paddle(20, 87, 83);
         for (var i = 0; i < 5; i++) {
-            this.balls.push(new Ball());
+            this.balls.push(new Ball(this));
         }
     }
     PlayScreen.prototype.update = function () {
+        if (this.lives < 1) {
+            this.endGame();
+        }
         for (var _i = 0, _a = this.balls; _i < _a.length; _i++) {
             var b = _a[_i];
             if (this.checkCollision(b.getRectangle(), this.paddle.getRectangle())) {
                 b.hitPaddle();
+                this.score++;
             }
             b.update();
         }
         this.paddle.update();
+        this.ui.update();
     };
     PlayScreen.prototype.checkCollision = function (a, b) {
         return (a.left <= b.right &&
             b.left <= a.right &&
             a.top <= b.bottom &&
             b.top <= a.bottom);
+    };
+    PlayScreen.prototype.endGame = function () {
+        this.game.showEndScreen();
     };
     return PlayScreen;
 }());
@@ -162,5 +178,17 @@ var StartScreen = (function () {
         this.game.showPlayScreen();
     };
     return StartScreen;
+}());
+var UI = (function () {
+    function UI(s) {
+        this.screen = s;
+        this.text = document.createElement("h3");
+        this.text.innerHTML = "score: 0&emsp;&emsp;lives:0";
+        document.body.appendChild(this.text);
+    }
+    UI.prototype.update = function () {
+        this.text.innerHTML = "score: " + this.screen.score + "&emsp;&emsp;lives:" + this.screen.lives;
+    };
+    return UI;
 }());
 //# sourceMappingURL=main.js.map

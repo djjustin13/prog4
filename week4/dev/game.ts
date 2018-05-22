@@ -19,6 +19,11 @@ class Game {
         document.body.innerHTML = ""
         this.screen = new PlayScreen(this)
     }
+
+    public showEndScreen(){
+        document.body.innerHTML = ""
+        this.screen = new GameOverScreen(this)
+    }
     
 } 
 

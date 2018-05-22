@@ -1,7 +1,7 @@
 /// <reference path="paddle.ts"/>
 
 class Ball {
-    
+    private screen:PlayScreen
     private div : HTMLElement
     
     private x : number
@@ -12,7 +12,8 @@ class Ball {
 
     private flip:boolean = false
     
-    constructor() {
+    constructor(s:PlayScreen) {
+        this.screen = s
         this.div = document.createElement("ball")
         document.body.appendChild(this.div)
         
@@ -55,7 +56,7 @@ class Ball {
         
         if (this.x + this.getRectangle().width < 0) { 
             this.x = window.innerWidth
-            console.log("lose a life")
+            this.screen.lives--
         } 
                         
         this.div.style.transform = `translate(${this.x}px, ${this.y}px)`

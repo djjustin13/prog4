@@ -1,5 +1,5 @@
 class GameOverScreen {
-    constructor() {
+    constructor(g:Game) {
 
     }
     update() {
