@@ -20,9 +20,9 @@ class Game {
         this.screen = new PlayScreen(this)
     }
 
-    public showEndScreen(){
+    public showEndScreen(score:number){
         document.body.innerHTML = ""
-        this.screen = new GameOverScreen(this)
+        this.screen = new GameOverScreen(this, score)
     }
     
 } 

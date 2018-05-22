@@ -110,17 +110,32 @@ var Game = (function () {
         document.body.innerHTML = "";
         this.screen = new PlayScreen(this);
     };
-    Game.prototype.showEndScreen = function () {
+    Game.prototype.showEndScreen = function (score) {
         document.body.innerHTML = "";
-        this.screen = new GameOverScreen(this);
+        this.screen = new GameOverScreen(this, score);
     };
     return Game;
 }());
 window.addEventListener("load", function () { return new Game(); });
 var GameOverScreen = (function () {
-    function GameOverScreen(g) {
+    function GameOverScreen(g, s) {
+        var _this = this;
+        this.game = g;
+        this.score = s;
+        var text = document.createElement("h1");
+        text.innerHTML = "Game Over<br><br>Restart";
+        text.classList.add("splash");
+        text.addEventListener("click", function () { return _this.nextLevel(); });
+        document.body.appendChild(text);
+        var score = document.createElement("h3");
+        score.innerHTML = "Score: " + this.score;
+        score.classList.add("endScore");
+        document.body.appendChild(score);
     }
     GameOverScreen.prototype.update = function () {
+    };
+    GameOverScreen.prototype.nextLevel = function () {
+        this.game.showPlayScreen();
     };
     return GameOverScreen;
 }());
@@ -158,7 +173,7 @@ var PlayScreen = (function () {
             b.top <= a.bottom);
     };
     PlayScreen.prototype.endGame = function () {
-        this.game.showEndScreen();
+        this.game.showEndScreen(this.score);
     };
     return PlayScreen;
 }());
@@ -183,11 +198,11 @@ var UI = (function () {
     function UI(s) {
         this.screen = s;
         this.text = document.createElement("h3");
-        this.text.innerHTML = "score: 0&emsp;&emsp;lives:0";
+        this.text.innerHTML = "score:0&emsp;&emsp;lives:0";
         document.body.appendChild(this.text);
     }
     UI.prototype.update = function () {
-        this.text.innerHTML = "score: " + this.screen.score + "&emsp;&emsp;lives:" + this.screen.lives;
+        this.text.innerHTML = "score:" + this.screen.score + "&emsp;&emsp;lives:" + this.screen.lives;
     };
     return UI;
 }());

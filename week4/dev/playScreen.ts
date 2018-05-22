@@ -46,7 +46,7 @@ class PlayScreen {
     }
 
     private endGame(){
-        this.game.showEndScreen()
+        this.game.showEndScreen(this.score)
     }
 
 
