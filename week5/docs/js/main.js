@@ -1,4 +1,14 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var Paddle = (function () {
     function Paddle(xp, up, down) {
         var _this = this;
@@ -44,16 +54,27 @@ var Paddle = (function () {
     };
     return Paddle;
 }());
-var Ball = (function () {
-    function Ball(s) {
-        this.flip = false;
-        this.screen = s;
-        this.div = document.createElement("ball");
+var GameObject = (function () {
+    function GameObject(el, x, y) {
+        this.x = x;
+        this.y = y;
+        this.div = document.createElement(el);
         document.body.appendChild(this.div);
-        this.x = window.innerWidth;
-        this.y = Math.random() * (window.innerHeight - 100);
-        this.speedX = -3 - (Math.random() * 6);
-        this.speedY = Math.random() * 6 - 3;
+    }
+    GameObject.prototype.update = function () {
+        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
+    };
+    return GameObject;
+}());
+var Ball = (function (_super) {
+    __extends(Ball, _super);
+    function Ball(s) {
+        var _this = _super.call(this, "ball", window.innerWidth, Math.random() * (window.innerHeight - 100)) || this;
+        _this.flip = false;
+        _this.screen = s;
+        _this.speedX = -3 - (Math.random() * 6);
+        _this.speedY = Math.random() * 6 - 3;
+        return _this;
     }
     Ball.prototype.getRectangle = function () {
         return this.div.getBoundingClientRect();
@@ -95,7 +116,7 @@ var Ball = (function () {
         }
     };
     return Ball;
-}());
+}(GameObject));
 var Game = (function () {
     function Game() {
         this.screen = new StartScreen(this);

@@ -1,25 +1,16 @@
 /// <reference path="paddle.ts"/>
+/// <reference path="gameObject.ts"/>
 
-class Ball {
-    private screen:PlayScreen
-    private div : HTMLElement
-    
-    private x : number
-    private y: number
-    
+class Ball extends GameObject{
     private speedX: number
     private speedY: number
+    private screen: Screen
 
     private flip:boolean = false
     
-    constructor(s:PlayScreen) {
+    constructor(s:any) {
+        super("ball", window.innerWidth, Math.random() * (window.innerHeight - 100))
         this.screen = s
-        this.div = document.createElement("ball")
-        document.body.appendChild(this.div)
-        
-        this.x = window.innerWidth
-        this.y = Math.random() * (window.innerHeight - 100)
-
         this.speedX = -3 - (Math.random() * 6)
         this.speedY = Math.random() * 6 - 3
     }
