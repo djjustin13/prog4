@@ -4,7 +4,7 @@
 class Ball extends GameObject{
     private speedX: number
     private speedY: number
-    private screen: Screen
+    private screen: any
 
     private flip:boolean = false
     

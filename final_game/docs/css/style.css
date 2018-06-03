@@ -1,0 +1,19 @@
+body{
+    overflow:hidden;
+    margin:0px; padding:0px;
+    background-color: #000000;
+
+}
+
+body * {
+    position: absolute;
+    display: block;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+}
+
+block{
+    background-image: url(../images/block.png);
+    width: 300px;
+    height: 300px;
+}
