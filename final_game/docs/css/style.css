@@ -14,6 +14,39 @@ body * {
 
 block{
     background-image: url(../images/block.png);
-    width: 300px;
-    height: 300px;
+    background-size: contain;
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+    left: 42vw;
+    top: 35vh;
+    transform-origin: 50% 50%
+}
+
+student, teacher{
+    background-size: contain;
+    width: 50px;
+    height: 50px;
+    background-image: url(../images/student.png);
+
+    animation: studentAnimation 2s ease-in-out infinite alternate;
+}
+
+p{
+    color: #FFFFFF;
+    font-size: 24px
+}
+
+@keyframes studentAnimation {
+    0% {
+      transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+    
+    100% {
+        transform: scale(1);
+    }
 }
