@@ -41,28 +41,24 @@ class Shop{
     }
 
     buyStudent(){
-        console.log("Klik")
         if(this.block.buy(1)){
             this.clickers.push(new Student(this.block))
         }
     }
 
     buyPeercoach(){
-        console.log("Klik")
         if(this.block.buy(5)){
             this.clickers.push(new Peercoach(this.block))
         }
     }
 
     buyGroup(){
-        console.log("Klik")
-        if(this.block.buy(1)){
+        if(this.block.buy(10)){
             this.clickers.push(new Group(this.block))
         }
     }
 
     buyTeacher(){
-        console.log("Klik")
         if(this.block.buy(25)){
             this.clickers.push(new Teacher(this.block))
         }

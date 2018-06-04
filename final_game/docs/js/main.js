@@ -75,20 +75,11 @@ var Game = (function () {
         this.shop = new Shop(this.block);
         this.gameLoop();
         setInterval(function () { return _this.gameTimer(); }, 1000);
-        setInterval(function () { return _this.fastTimer(); }, 500);
     }
     Game.prototype.gameLoop = function () {
         var _this = this;
         this.ui.update();
         requestAnimationFrame(function () { return _this.gameLoop(); });
-    };
-    Game.prototype.fastTimer = function () {
-        if (this.shop.clickers.length > 0) {
-            for (var _i = 0, _a = this.shop.clickers; _i < _a.length; _i++) {
-                var clicker = _a[_i];
-                clicker.fastTimer();
-            }
-        }
     };
     Game.prototype.gameTimer = function () {
         if (this.shop.clickers.length > 0) {
@@ -108,8 +99,8 @@ var Group = (function (_super) {
         _this.element.style.fontSize = "40px";
         return _this;
     }
-    Group.prototype.fastTimer = function () {
-        this.block.clickBlock(4);
+    Group.prototype.timer = function () {
+        this.block.clickBlock(10);
     };
     return Group;
 }(Clicker));
@@ -159,25 +150,21 @@ var Shop = (function () {
         bTeacher.addEventListener("click", function () { return _this.buyTeacher(); });
     }
     Shop.prototype.buyStudent = function () {
-        console.log("Klik");
         if (this.block.buy(1)) {
             this.clickers.push(new Student(this.block));
         }
     };
     Shop.prototype.buyPeercoach = function () {
-        console.log("Klik");
         if (this.block.buy(5)) {
             this.clickers.push(new Peercoach(this.block));
         }
     };
     Shop.prototype.buyGroup = function () {
-        console.log("Klik");
-        if (this.block.buy(1)) {
+        if (this.block.buy(10)) {
             this.clickers.push(new Group(this.block));
         }
     };
     Shop.prototype.buyTeacher = function () {
-        console.log("Klik");
         if (this.block.buy(25)) {
             this.clickers.push(new Teacher(this.block));
         }

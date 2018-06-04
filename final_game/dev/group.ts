@@ -6,7 +6,7 @@ class Group extends Clicker{
         this.element.style.fontSize = "40px"
     } 
 
-    public fastTimer(){
-        this.block.clickBlock(4)
+    public timer(){
+        this.block.clickBlock(10)
     }
 }
