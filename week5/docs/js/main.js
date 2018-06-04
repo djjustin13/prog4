@@ -198,6 +198,14 @@ var PlayScreen = (function () {
     };
     return PlayScreen;
 }());
+var Screen = (function () {
+    function Screen(g) {
+        this.game = g;
+    }
+    Screen.prototype.update = function () {
+    };
+    return Screen;
+}());
 var StartScreen = (function () {
     function StartScreen(g) {
         var _this = this;

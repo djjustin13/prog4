@@ -1,4 +1,14 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var Block = (function () {
     function Block() {
         var _this = this;
@@ -12,7 +22,7 @@ var Block = (function () {
         var _this = this;
         if (n === void 0) { n = 1; }
         this.score += n;
-        if (this.score > 100) {
+        if (this.score > 99) {
             this.score -= 100;
             this.points += 1;
         }
@@ -36,6 +46,26 @@ var Block = (function () {
     };
     return Block;
 }());
+var Clicker = (function () {
+    function Clicker(block, name) {
+        this.block = block;
+        this.element = document.createElement("i");
+        this.element.classList.add("fas", name);
+        document.body.appendChild(this.element);
+        this.x = this.randomNumber(0, window.innerWidth - 250);
+        this.y = this.randomNumber(100, window.innerHeight - 50);
+        this.element.style.left = this.x + "px";
+        this.element.style.top = this.y + "px";
+    }
+    Clicker.prototype.timer = function () {
+        this.block.clickBlock();
+    };
+    Clicker.prototype.randomNumber = function (min, max) {
+        var a = Math.floor(Math.random() * (max - min + 1)) + min;
+        return a;
+    };
+    return Clicker;
+}());
 var Game = (function () {
     function Game() {
         var _this = this;
@@ -45,11 +75,20 @@ var Game = (function () {
         this.shop = new Shop(this.block);
         this.gameLoop();
         setInterval(function () { return _this.gameTimer(); }, 1000);
+        setInterval(function () { return _this.fastTimer(); }, 500);
     }
     Game.prototype.gameLoop = function () {
         var _this = this;
         this.ui.update();
         requestAnimationFrame(function () { return _this.gameLoop(); });
+    };
+    Game.prototype.fastTimer = function () {
+        if (this.shop.clickers.length > 0) {
+            for (var _i = 0, _a = this.shop.clickers; _i < _a.length; _i++) {
+                var clicker = _a[_i];
+                clicker.fastTimer();
+            }
+        }
     };
     Game.prototype.gameTimer = function () {
         if (this.shop.clickers.length > 0) {
@@ -62,6 +101,28 @@ var Game = (function () {
     return Game;
 }());
 window.addEventListener("load", function () { return new Game(); });
+var Group = (function (_super) {
+    __extends(Group, _super);
+    function Group(b) {
+        var _this = _super.call(this, b, "fa-users") || this;
+        _this.element.style.fontSize = "40px";
+        return _this;
+    }
+    Group.prototype.fastTimer = function () {
+        this.block.clickBlock(4);
+    };
+    return Group;
+}(Clicker));
+var Peercoach = (function (_super) {
+    __extends(Peercoach, _super);
+    function Peercoach(b) {
+        return _super.call(this, b, "fa-user-graduate") || this;
+    }
+    Peercoach.prototype.timer = function () {
+        this.block.clickBlock(6);
+    };
+    return Peercoach;
+}(Clicker));
 var Shop = (function () {
     function Shop(b) {
         var _this = this;
@@ -73,17 +134,27 @@ var Shop = (function () {
         shop.style.right = "25px";
         document.body.appendChild(shop);
         var bStudent = document.createElement("p");
-        bStudent.innerHTML = "Koop student | 1.-";
+        bStudent.innerHTML = "Koop student | 1";
         bStudent.style.top = "35px";
-        bStudent.style.right = "25px";
-        bStudent.style.cursor = "pointer";
+        bStudent.classList.add("shop");
         document.body.appendChild(bStudent);
         bStudent.addEventListener("click", function () { return _this.buyStudent(); });
+        var bPeercoach = document.createElement("p");
+        bPeercoach.innerHTML = "Koop peercoach | 5";
+        bPeercoach.style.top = "60px";
+        bPeercoach.classList.add("shop");
+        document.body.appendChild(bPeercoach);
+        bPeercoach.addEventListener("click", function () { return _this.buyPeercoach(); });
+        var bGroup = document.createElement("p");
+        bGroup.innerHTML = "Koop klas| 10";
+        bGroup.style.top = "85px";
+        bGroup.classList.add("shop");
+        document.body.appendChild(bGroup);
+        bGroup.addEventListener("click", function () { return _this.buyGroup(); });
         var bTeacher = document.createElement("p");
-        bTeacher.innerHTML = "Koop docent | 5.-";
-        bTeacher.style.top = "60px";
-        bTeacher.style.right = "25px";
-        bTeacher.style.cursor = "pointer";
+        bTeacher.innerHTML = "Koop docent | 25";
+        bTeacher.style.top = "110px";
+        bTeacher.classList.add("shop");
         document.body.appendChild(bTeacher);
         bTeacher.addEventListener("click", function () { return _this.buyTeacher(); });
     }
@@ -93,60 +164,45 @@ var Shop = (function () {
             this.clickers.push(new Student(this.block));
         }
     };
-    Shop.prototype.buyTeacher = function () {
+    Shop.prototype.buyPeercoach = function () {
         console.log("Klik");
         if (this.block.buy(5)) {
+            this.clickers.push(new Peercoach(this.block));
+        }
+    };
+    Shop.prototype.buyGroup = function () {
+        console.log("Klik");
+        if (this.block.buy(1)) {
+            this.clickers.push(new Group(this.block));
+        }
+    };
+    Shop.prototype.buyTeacher = function () {
+        console.log("Klik");
+        if (this.block.buy(25)) {
             this.clickers.push(new Teacher(this.block));
         }
     };
     return Shop;
 }());
-var Student = (function () {
+var Student = (function (_super) {
+    __extends(Student, _super);
     function Student(b) {
-        this.block = b;
-        console.log("Nieuwe student!!");
-        this.element = document.createElement("student");
-        document.body.appendChild(this.element);
-        this.x = this.randomNumber(0, window.innerWidth - 50);
-        this.y = this.randomNumber(100, window.innerHeight - 50);
-        this.element.style.left = this.x + "px";
-        this.element.style.top = this.y + "px";
+        return _super.call(this, b, "fa-user") || this;
     }
-    Student.prototype.update = function () {
-    };
-    Student.prototype.timer = function () {
-        this.block.clickBlock();
-    };
-    Student.prototype.randomNumber = function (min, max) {
-        var a = Math.floor(Math.random() * (max - min + 1)) + min;
-        return a;
-    };
     return Student;
-}());
-var Teacher = (function () {
+}(Clicker));
+var Teacher = (function (_super) {
+    __extends(Teacher, _super);
     function Teacher(b) {
-        this.block = b;
-        console.log("Nieuwe student!!");
-        this.element = document.createElement("teacher");
-        document.body.appendChild(this.element);
-        this.x = this.randomNumber(0, window.innerWidth - 50);
-        this.y = this.randomNumber(100, window.innerHeight - 50);
-        this.element.style.left = this.x + "px";
-        this.element.style.top = this.y + "px";
-        this.element.style.webkitFilter = "hue-rotate(211deg)";
-        this.element.style.filter = "hue-rotate(211deg)";
+        var _this = _super.call(this, b, "fa-user-tie") || this;
+        _this.element.style.fontSize = "40px";
+        return _this;
     }
-    Teacher.prototype.update = function () {
-    };
     Teacher.prototype.timer = function () {
-        this.block.clickBlock(10);
-    };
-    Teacher.prototype.randomNumber = function (min, max) {
-        var a = Math.floor(Math.random() * (max - min + 1)) + min;
-        return a;
+        this.block.clickBlock(20);
     };
     return Teacher;
-}());
+}(Clicker));
 var Ui = (function () {
     function Ui(b) {
         this.blockScore = document.createElement("p");

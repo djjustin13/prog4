@@ -12,12 +12,21 @@ class Game{
 
         this.gameLoop()
         setInterval(()=> this.gameTimer(), 1000)
+        setInterval(()=> this.fastTimer(), 500)
     }
 
     private gameLoop():void{
         
         this.ui.update()
         requestAnimationFrame(() => this.gameLoop())
+    }
+
+    private fastTimer(){
+        if(this.shop.clickers.length > 0){
+            for(let clicker of this.shop.clickers){
+                clicker.fastTimer()
+            }
+        }
     }
 
     private gameTimer(){

@@ -1,12 +1,12 @@
 /// <reference path="clicker.ts"/>
 
-class Teacher extends Clicker{ 
+class Group extends Clicker{ 
     constructor(b:Block){
-        super(b, "fa-user-tie")
+        super(b, "fa-users")
         this.element.style.fontSize = "40px"
     } 
 
-    public timer(){
-        this.block.clickBlock(20)
+    public fastTimer(){
+        this.block.clickBlock(4)
     }
 }

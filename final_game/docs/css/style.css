@@ -2,7 +2,7 @@ body{
     overflow:hidden;
     margin:0px; padding:0px;
     background-color: #000000;
-
+    font-family: 'Roboto', sans-serif;
 }
 
 body * {
@@ -20,21 +20,29 @@ block{
     cursor: pointer;
     left: 42vw;
     top: 35vh;
-    transform-origin: 50% 50%
+    transform-origin: 50% 50%;
+    z-index: 10;
 }
 
-student, teacher{
-    background-size: contain;
-    width: 50px;
-    height: 50px;
-    background-image: url(../images/student.png);
-
+i{
+    font-size: 30px;
+    color: white;
     animation: studentAnimation 2s ease-in-out infinite alternate;
 }
+
 
 p{
     color: #FFFFFF;
     font-size: 24px
+}
+
+.shop{
+    right: 25px;
+    cursor: pointer;
+}
+
+.shop:hover{
+    color: grey;
 }
 
 @keyframes studentAnimation {

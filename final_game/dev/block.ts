@@ -13,7 +13,7 @@ element: HTMLElement
 
     public clickBlock(n:number = 1){
         this.score += n
-        if(this.score > 100){
+        if(this.score > 99){
             this.score -= 100
             this.points +=1
         }

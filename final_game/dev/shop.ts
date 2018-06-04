@@ -12,18 +12,30 @@ class Shop{
         document.body.appendChild(shop)
 
         let bStudent = document.createElement("p")
-        bStudent.innerHTML = "Koop student | 1.-"
+        bStudent.innerHTML = "Koop student | 1"
         bStudent.style.top = "35px"
-        bStudent.style.right = "25px"
-        bStudent.style.cursor = "pointer"
+        bStudent.classList.add("shop")
         document.body.appendChild(bStudent)
         bStudent.addEventListener("click", ()=> this.buyStudent())
 
+        let bPeercoach = document.createElement("p")
+        bPeercoach.innerHTML = "Koop peercoach | 5"
+        bPeercoach.style.top = "60px"
+        bPeercoach.classList.add("shop")
+        document.body.appendChild(bPeercoach)
+        bPeercoach.addEventListener("click", ()=> this.buyPeercoach())
+
+        let bGroup = document.createElement("p")
+        bGroup.innerHTML = "Koop klas| 10"
+        bGroup.style.top = "85px"
+        bGroup.classList.add("shop")
+        document.body.appendChild(bGroup)
+        bGroup.addEventListener("click", ()=> this.buyGroup())
+
         let bTeacher = document.createElement("p")
-        bTeacher.innerHTML = "Koop docent | 5.-"
-        bTeacher.style.top = "60px"
-        bTeacher.style.right = "25px"
-        bTeacher.style.cursor = "pointer"
+        bTeacher.innerHTML = "Koop docent | 25"
+        bTeacher.style.top = "110px"
+        bTeacher.classList.add("shop")
         document.body.appendChild(bTeacher)
         bTeacher.addEventListener("click", ()=> this.buyTeacher())
     }
@@ -35,9 +47,23 @@ class Shop{
         }
     }
 
-    buyTeacher(){
+    buyPeercoach(){
         console.log("Klik")
         if(this.block.buy(5)){
+            this.clickers.push(new Peercoach(this.block))
+        }
+    }
+
+    buyGroup(){
+        console.log("Klik")
+        if(this.block.buy(1)){
+            this.clickers.push(new Group(this.block))
+        }
+    }
+
+    buyTeacher(){
+        console.log("Klik")
+        if(this.block.buy(25)){
             this.clickers.push(new Teacher(this.block))
         }
     }
