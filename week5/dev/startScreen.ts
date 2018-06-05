@@ -1,8 +1,8 @@
-class StartScreen {
+/// <reference path="gameScreen.ts"/>
+class StartScreen extends gameScreen {
 
-    game:Game
     constructor(g:Game) {
-        this.game = g
+        super(g)
 
         let start = document.createElement("h1")
         start.innerHTML = "Start!"

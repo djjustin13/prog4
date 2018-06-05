@@ -1,6 +1,4 @@
-/// <reference path="game.ts"/>
-
-class Screen {
+class gameScreen {
 
     game:Game
     constructor(g:Game){

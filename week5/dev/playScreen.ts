@@ -1,6 +1,5 @@
-class PlayScreen {
-
-    game:Game
+/// <reference path="gameScreen.ts"/>
+class PlayScreen extends gameScreen {
     private balls: Ball[] = []
     private paddle:Paddle
     private ui:UI
@@ -8,6 +7,8 @@ class PlayScreen {
     public lives:number
 
     constructor(g:Game) {
+        super(g)
+
         this.score = -5
         this.lives = 10
         this.ui = new UI(this)

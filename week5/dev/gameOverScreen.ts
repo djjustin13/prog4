@@ -1,8 +1,8 @@
-class GameOverScreen {
-    game:Game
+/// <reference path="gameScreen.ts"/>
+class GameOverScreen extends gameScreen {
     score:number
     constructor(g:Game, s:number) {
-        this.game = g
+        super(g)
         this.score = s
 
         let text = document.createElement("h1")
@@ -17,9 +17,6 @@ class GameOverScreen {
         document.body.appendChild(score)
 
 
-    }
-
-    public update(): void {
     }
 
     private nextLevel(){
