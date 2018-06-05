@@ -1,7 +1,5 @@
-/// <reference path="paddle.ts"/>
-
 class Ball {
-    
+    private game:Game
     private div : HTMLElement
     
     private x : number = 0
@@ -10,8 +8,11 @@ class Ball {
     private speedX: number = 0
     private speedY: number = 0
     
-    constructor() {
+    constructor(g:Game) {
+        this.game = g
         this.div = document.createElement("ball")
+        this.div.addEventListener("mousedown", ()=> this.cleanUp())
+
         document.body.appendChild(this.div)
 
         this.x = (Math.random() * (window.innerWidth/2)) + (window.innerWidth/4)
@@ -36,5 +37,13 @@ class Ball {
         } 
                         
         this.div.style.transform = `translate(${this.x}px, ${this.y}px)` 
+    }
+
+    public cleanUp(){
+        console.log("click")
+
+        this.div.remove()
+
+        this.game.removeElement(this)
     }
 }

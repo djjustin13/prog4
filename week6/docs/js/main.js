@@ -1,11 +1,14 @@
 "use strict";
 var Ball = (function () {
-    function Ball() {
+    function Ball(g) {
+        var _this = this;
         this.x = 0;
         this.y = 0;
         this.speedX = 0;
         this.speedY = 0;
+        this.game = g;
         this.div = document.createElement("ball");
+        this.div.addEventListener("mousedown", function () { return _this.cleanUp(); });
         document.body.appendChild(this.div);
         this.x = (Math.random() * (window.innerWidth / 2)) + (window.innerWidth / 4);
         this.y = (Math.random() * (window.innerHeight / 2)) + (window.innerHeight / 4);
@@ -25,16 +28,28 @@ var Ball = (function () {
         }
         this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
     };
+    Ball.prototype.cleanUp = function () {
+        console.log("click");
+        this.div.remove();
+        this.game.removeElement(this);
+    };
     return Ball;
 }());
 var Game = (function () {
     function Game() {
         this.balls = [];
         for (var i = 0; i < 15; i++) {
-            this.balls.push(new Ball());
+            this.balls.push(new Ball(this));
         }
         this.gameLoop();
     }
+    Game.prototype.removeElement = function (el) {
+        for (var i = 0; i < this.balls.length; i++) {
+            if (this.balls[i] === el) {
+                this.balls.splice(i, 1);
+            }
+        }
+    };
     Game.prototype.gameLoop = function () {
         var _this = this;
         for (var _i = 0, _a = this.balls; _i < _a.length; _i++) {
