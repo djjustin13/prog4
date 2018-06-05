@@ -124,30 +124,10 @@ var Shop = (function () {
         shop.style.top = "5px";
         shop.style.right = "25px";
         document.body.appendChild(shop);
-        var bStudent = document.createElement("p");
-        bStudent.innerHTML = "Koop student | 1";
-        bStudent.style.top = "35px";
-        bStudent.classList.add("shop");
-        document.body.appendChild(bStudent);
-        bStudent.addEventListener("click", function () { return _this.buyStudent(); });
-        var bPeercoach = document.createElement("p");
-        bPeercoach.innerHTML = "Koop peercoach | 5";
-        bPeercoach.style.top = "60px";
-        bPeercoach.classList.add("shop");
-        document.body.appendChild(bPeercoach);
-        bPeercoach.addEventListener("click", function () { return _this.buyPeercoach(); });
-        var bGroup = document.createElement("p");
-        bGroup.innerHTML = "Koop klas| 10";
-        bGroup.style.top = "85px";
-        bGroup.classList.add("shop");
-        document.body.appendChild(bGroup);
-        bGroup.addEventListener("click", function () { return _this.buyGroup(); });
-        var bTeacher = document.createElement("p");
-        bTeacher.innerHTML = "Koop docent | 25";
-        bTeacher.style.top = "110px";
-        bTeacher.classList.add("shop");
-        document.body.appendChild(bTeacher);
-        bTeacher.addEventListener("click", function () { return _this.buyTeacher(); });
+        new ShopItem("Koop student | 1", 35).getElement().addEventListener("click", function () { return _this.buyStudent(); });
+        new ShopItem("Koop peercoach | 5", 60).getElement().addEventListener("click", function () { return _this.buyPeercoach(); });
+        new ShopItem("Koop klas | 10", 85).getElement().addEventListener("click", function () { return _this.buyGroup(); });
+        new ShopItem("Koop docent | 25", 110).getElement().addEventListener("click", function () { return _this.buyTeacher(); });
     }
     Shop.prototype.buyStudent = function () {
         if (this.block.buy(1)) {
@@ -170,6 +150,19 @@ var Shop = (function () {
         }
     };
     return Shop;
+}());
+var ShopItem = (function () {
+    function ShopItem(text, topOffset) {
+        this.element = document.createElement("p");
+        this.element.innerHTML = text;
+        this.element.style.top = String(topOffset) + "px";
+        this.element.classList.add("shop");
+        document.body.appendChild(this.element);
+    }
+    ShopItem.prototype.getElement = function () {
+        return this.element;
+    };
+    return ShopItem;
 }());
 var Student = (function (_super) {
     __extends(Student, _super);

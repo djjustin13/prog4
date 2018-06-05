@@ -11,33 +11,11 @@ class Shop{
         shop.style.right = "25px"
         document.body.appendChild(shop)
 
-        let bStudent = document.createElement("p")
-        bStudent.innerHTML = "Koop student | 1"
-        bStudent.style.top = "35px"
-        bStudent.classList.add("shop")
-        document.body.appendChild(bStudent)
-        bStudent.addEventListener("click", ()=> this.buyStudent())
+        new ShopItem("Koop student | 1", 35).getElement().addEventListener("click", ()=> this.buyStudent())
+        new ShopItem("Koop peercoach | 5", 60).getElement().addEventListener("click", ()=> this.buyPeercoach())
+        new ShopItem("Koop klas | 10", 85).getElement().addEventListener("click", ()=> this.buyGroup())
+        new ShopItem("Koop docent | 25", 110).getElement().addEventListener("click", ()=> this.buyTeacher())
 
-        let bPeercoach = document.createElement("p")
-        bPeercoach.innerHTML = "Koop peercoach | 5"
-        bPeercoach.style.top = "60px"
-        bPeercoach.classList.add("shop")
-        document.body.appendChild(bPeercoach)
-        bPeercoach.addEventListener("click", ()=> this.buyPeercoach())
-
-        let bGroup = document.createElement("p")
-        bGroup.innerHTML = "Koop klas| 10"
-        bGroup.style.top = "85px"
-        bGroup.classList.add("shop")
-        document.body.appendChild(bGroup)
-        bGroup.addEventListener("click", ()=> this.buyGroup())
-
-        let bTeacher = document.createElement("p")
-        bTeacher.innerHTML = "Koop docent | 25"
-        bTeacher.style.top = "110px"
-        bTeacher.classList.add("shop")
-        document.body.appendChild(bTeacher)
-        bTeacher.addEventListener("click", ()=> this.buyTeacher())
     }
 
     buyStudent(){
