@@ -68,26 +68,17 @@ var Clicker = (function () {
 }());
 var Game = (function () {
     function Game() {
-        var _this = this;
-        console.log("Start game");
-        this.block = new Block();
-        this.ui = new Ui(this.block);
-        this.shop = new Shop(this.block);
+        this.screen = new StartScreen(this);
         this.gameLoop();
-        setInterval(function () { return _this.gameTimer(); }, 1000);
     }
     Game.prototype.gameLoop = function () {
         var _this = this;
-        this.ui.update();
+        this.screen.update();
         requestAnimationFrame(function () { return _this.gameLoop(); });
     };
-    Game.prototype.gameTimer = function () {
-        if (this.shop.clickers.length > 0) {
-            for (var _i = 0, _a = this.shop.clickers; _i < _a.length; _i++) {
-                var clicker = _a[_i];
-                clicker.timer();
-            }
-        }
+    Game.prototype.showPlayScreen = function () {
+        document.body.innerHTML = "";
+        this.screen = new PlayScreen(this);
     };
     return Game;
 }());
@@ -114,6 +105,31 @@ var Peercoach = (function (_super) {
     };
     return Peercoach;
 }(Clicker));
+var PlayScreen = (function () {
+    function PlayScreen(g) {
+        var _this = this;
+        this.game = g;
+        this.block = new Block();
+        this.ui = new Ui(this.block);
+        this.shop = new Shop(this.block);
+        this.gameLoop();
+        setInterval(function () { return _this.gameTimer(); }, 1000);
+    }
+    PlayScreen.prototype.gameLoop = function () {
+        var _this = this;
+        this.ui.update();
+        requestAnimationFrame(function () { return _this.gameLoop(); });
+    };
+    PlayScreen.prototype.gameTimer = function () {
+        if (this.shop.clickers.length > 0) {
+            for (var _i = 0, _a = this.shop.clickers; _i < _a.length; _i++) {
+                var clicker = _a[_i];
+                clicker.timer();
+            }
+        }
+    };
+    return PlayScreen;
+}());
 var Shop = (function () {
     function Shop(b) {
         var _this = this;
@@ -163,6 +179,21 @@ var ShopItem = (function () {
         return this.element;
     };
     return ShopItem;
+}());
+var StartScreen = (function () {
+    function StartScreen(g) {
+        var _this = this;
+        this.game = g;
+        var logo = document.createElement("logo");
+        logo.addEventListener("click", function () { return _this.nextLevel(); });
+        document.body.appendChild(logo);
+    }
+    StartScreen.prototype.update = function () {
+    };
+    StartScreen.prototype.nextLevel = function () {
+        this.game.showPlayScreen();
+    };
+    return StartScreen;
 }());
 var Student = (function (_super) {
     __extends(Student, _super);

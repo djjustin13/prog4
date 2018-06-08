@@ -3,13 +3,20 @@ body{
     margin:0px; padding:0px;
     background-color: #000000;
     font-family: 'Roboto', sans-serif;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+	background-size: 400% 400%;
+    animation: Gradient 15s ease infinite;
 }
+
 
 body * {
     position: absolute;
     display: block;
     box-sizing: border-box;
     background-repeat: no-repeat;
+    z-index: 10;
 }
 
 block{
@@ -22,6 +29,23 @@ block{
     top: 35vh;
     transform-origin: 50% 50%;
     z-index: 10;
+    transition: all 100ms ease-in-out;
+}
+
+logo{
+    background-image: url(../images/logo.png);
+    background-size: contain;
+    width: 374px;
+    height: 282px;
+    cursor: pointer;
+    left: 38vw;
+    top: 35vh;
+    /* transform-origin: 50% 50%; */
+    transition: all 200ms ease-in-out;
+}
+
+logo:hover{
+    transform: scale(1.05, 1.05);
 }
 
 i{
@@ -57,4 +81,16 @@ p{
     100% {
         transform: scale(1);
     }
+}
+
+@keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
 }
